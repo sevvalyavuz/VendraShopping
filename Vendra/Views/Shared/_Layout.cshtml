@@ -10,27 +10,65 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Vendra</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+        <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom shadow-sm py-2">
+            <div class="container">
+                <!-- Logo -->
+                <a class="navbar-brand fw-bold fs-4" asp-area="" asp-controller="Home" asp-action="Index">Vendra</a>
+
+                <!-- Toggler -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar"
+                        aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+
+                <!-- Navbar content -->
+                <div class="collapse navbar-collapse" id="mainNavbar">
+                    <!-- Kategoriler -->
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="CategoriesDropdown" role="button"
+                               data-bs-toggle="dropdown" aria-expanded="false">Kategoriler</a>
+                            <ul class="dropdown-menu" aria-labelledby="CategoriesDropdown">
+                                <li><a class="dropdown-item" href="#">İndirim</a></li>
+                                <li><a class="dropdown-item" href="#">Kadın</a></li>
+                                <li><a class="dropdown-item" href="#">Erkek</a></li>
+                                <li><a class="dropdown-item" href="#">Anne & çocuk</a></li>
+                                <li><a class="dropdown-item" href="#">Ev & Mobilya</a></li>
+                                <li><a class="dropdown-item" href="#">Kozmetik</a></li>
+                                <li><a class="dropdown-item" href="#">Aksesuar</a></li>
+                                <li><a class="dropdown-item" href="#">Elektronik</a></li>
+                                <li><a class="dropdown-item" href="#">Kitap & Kırtasiye & Hobi</a></li>
+                            </ul>
+                        </li>                                             
+                    </ul>
+
+                    <!-- Arama çubuğu -->
+                    <form class="d-flex mx-auto" role="search" style="width: 60%;">
+                        <input class="form-control me-2" type="search" placeholder="Aradığınız ürünü girin" aria-label="Search">
+                        <button class="btn btn-outline-primary" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                    </form>
+
+
+                    <!-- Kullanıcı ve Sepet -->
+                    <ul class="navbar-nav mb-2 mb-lg-0 d-flex align-items-center">
+                        <li class="nav-item me-3">
+                            <a class="nav-link" href="#"><i class="fas fa-heart"></i> Favorilerim</a>
+                        </li>
+                        <li class="nav-item me-3">
+                            <a class="nav-link" href="#"><i class="fas fa-shopping-cart"></i> Sepetim</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <partial name="_LoginPartial" />
                         </li>
                     </ul>
-                    <partial name="_LoginPartial" />
                 </div>
             </div>
         </nav>
     </header>
+
+    <!-- Font Awesome için (ikonlar) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()

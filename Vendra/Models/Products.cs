@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Vendra.Models
 {
@@ -9,14 +10,21 @@ namespace Vendra.Models
         [Required]
         public string Name { get; set; }
 
+        [Required]
         public string Description { get; set; }
 
         [Required]
-        public decimal Price { get; set; }
-
         public string ImageUrl { get; set; }
 
-        public string SellerId { get; set; } // Ürünü ekleyen satıcı
+        [Required]
+        [Column(TypeName = "decimal(18,2)")] 
+        public decimal Price { get; set; }
+
+        [Required]
+        public string SellerId { get; set; }
+
+        public string Brand { get; set; }
+
     }
 }
 

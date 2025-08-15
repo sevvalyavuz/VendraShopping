@@ -18,5 +18,74 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+
 }
+.RegisterText{
+    margin-top:40px;
+    text-align:center;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Login {
+    width: 500px;
+    border-radius: 20px;
+    border-color: gainsboro;
+    border-style:solid;
+    border-width:1px;
+    height: 500px;
+    padding: 30px;
+    margin-top:20px;
+}
+
+.Login .form-control {  
+    margin:0 auto;  
+}
+
+.form-group{
+    padding:10px
+}
+
+.category-circles {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    padding: 20px 0;
+    flex-wrap: wrap;
+}
+
+.circle-item {
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.circle-item img {
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 50%; 
+    border: 2px solid ;
+    transition: all 0.3s ease;
+}
+
+.circle-item p {
+    margin-top: 8px;
+    font-weight: 500;
+    font-size: 14px;
+    color: #333;
+}
+
+.circle-item:hover {
+    transform: scale(1.05);
+}
+
+.circle-item img:hover {
+    border-color: #ff9500; /* hover'da renk deðiþimi */
+}
+

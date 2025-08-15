@@ -12,7 +12,7 @@ using Vendra.Data;
 namespace Vendra.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250815082719_AddProduct")]
+    [Migration("20250815092151_AddProduct")]
     partial class AddProduct
     {
         /// <inheritdoc />

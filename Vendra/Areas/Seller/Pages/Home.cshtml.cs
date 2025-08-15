@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Vendra.Data;
 using Vendra.Models;
 
-namespace Vendra.Areas.Seller
+namespace Vendra.Areas.Seller.Pages
 {
     [Authorize] // giriþ zorunlu
     public class HomeModel : PageModel

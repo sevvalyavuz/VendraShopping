@@ -1,11 +1,13 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Vendra.Data;
 using Vendra.Models;
 
-namespace Vendra.Areas.Seller
+namespace Vendra.Areas.Seller.Pages
 {
+    [Authorize]
     public class AddProductModel : PageModel
     {
         private readonly ApplicationDbContext _context;
@@ -20,9 +22,7 @@ namespace Vendra.Areas.Seller
         [BindProperty]
         public Product Product { get; set; }
 
-        public void OnGet()
-        {
-        }
+        public void OnGet() { }
 
         public async Task<IActionResult> OnPostAsync()
         {
