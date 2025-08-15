@@ -1,0 +1,32 @@
+﻿@page
+@model Vendra.Areas.Seller.HomeModel
+@{
+	ViewData["Title"] = "Satıcı Paneli";
+}
+
+<h2>Satıcı Paneli</h2>
+
+<a class="btn btn-primary mb-3" asp-page="/Seller/AddProduct">Ürün Ekle</a>
+
+@if (Model.MyProducts.Count == 0)
+{
+    <p>Henüz ürününüz yok. <a asp-page="/Seller/AddProduct">İlk ürününüzü ekleyin.</a></p>
+}
+else
+{
+    <div class="row">
+        @foreach (var p in Model.MyProducts)
+        {
+            <div class="col-md-4">
+                <div class="card mb-3">
+                    <img src="@p?.ImageUrl" class="card-img-top" alt="@p?.Name" />
+                    <div class="card-body">
+                        <h5 class="card-title">@p?.Name</h5>
+                        <p class="card-text">@p?.Description</p>
+                        <p class="card-text"><strong>@p?.Price ₺</strong></p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
