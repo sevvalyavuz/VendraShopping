@@ -10,7 +10,9 @@ namespace Vendra.Models
     public enum UserType
     {
         Customer,
-        Seller
+        Seller,
+        Admin,
+        User
     }
 }
 

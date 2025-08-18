@@ -11,6 +11,8 @@ namespace Vendra.Areas.Identity.Pages.Account
     {
         private readonly UserManager<ApplicationUser> _userManager;
 
+        private readonly SignInManager<ApplicationUser> _signInManager;
+
         public RegisterModel(UserManager<ApplicationUser> userManager)
         {
             _userManager = userManager;
@@ -18,6 +20,7 @@ namespace Vendra.Areas.Identity.Pages.Account
 
         [BindProperty]
         public InputModel Input { get; set; }
+  
 
         public class InputModel
         {
@@ -36,6 +39,7 @@ namespace Vendra.Areas.Identity.Pages.Account
 
             [Required]
             public UserType Type { get; set; } // Customer veya Seller
+            public bool RememberMe { get; set; }
         }
 
         public async Task<IActionResult> OnPostAsync()
@@ -47,7 +51,8 @@ namespace Vendra.Areas.Identity.Pages.Account
 
                 if (result.Succeeded)
                 {
-                    return RedirectToPage("/Index"); // Ana sayfaya yönlendir
+                    await _signInManager.SignInAsync(user, isPersistent: false);
+                    return RedirectToAction("Index", "Home"); // MVC sayfasýna yönlendir
                 }
 
                 foreach (var error in result.Errors)

@@ -1,14 +1,14 @@
+using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using System.ComponentModel.DataAnnotations;
-using System.Threading.Tasks;
 using Vendra.Models;
 
 namespace Vendra.Areas.Identity.Pages.Account
 {
     public class LoginModel : PageModel
     {
+        private string UserMail;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
 
@@ -17,6 +17,7 @@ namespace Vendra.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _userManager = userManager;
         }
+
 
         [BindProperty]
         public InputModel Input { get; set; }
@@ -43,18 +44,23 @@ namespace Vendra.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
+                UserMail = Input.Email;
 
                 if (result.Succeeded)
                 {
                     var user = await _userManager.FindByEmailAsync(Input.Email);
 
-                    if (user.Type == UserType.Customer)
+                    if (user.Type == UserType.Customer && UserMail == "customer@gmail.com")
                     {
                         return LocalRedirect("/Customer/Home");
                     }
-                    else if (user.Type == UserType.Seller)
+                    else if (user.Type == UserType.Seller && UserMail == "seller@gmail.com")
                     {
-                        return LocalRedirect("/Seller/Home");
+                        return LocalRedirect("/Seller/Home" );
+                    }
+                    else if (user.Type == UserType.Admin && UserMail == "admin@gmail.com")
+                    {
+                        return LocalRedirect("/Admin/Home");
                     }
                 }
 

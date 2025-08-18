@@ -1,11 +1,11 @@
 ﻿@{
-    ViewData["Title"] = "Admin Paneli";
+    ViewData["Title"] = "Admin";
 }
 
 <h2>Admin Paneli</h2>
 
 <!-- Ürün ekleme butonu -->
-<a href="@Url.Action("AddProduct", "Admin")" class="btn btn-primary">
+<a asp-controller="Brand" asp-action="Create" class="btn btn-primary">
     Yeni Marka Ekle
 </a>
 

@@ -1,0 +1,10 @@
+﻿@model Vendra.Models.Brand
+
+<h2>Markayı Sil</h2>
+<p>@Model.Name markasını silmek istediğinizden emin misiniz?</p>
+
+<form asp-action="DeleteConfirmed" method="post">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">Sil</button>
+    <a asp-action="Index" class="btn btn-secondary">İptal</a>
+</form>
