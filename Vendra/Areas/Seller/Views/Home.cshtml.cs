@@ -27,7 +27,7 @@ namespace Vendra.Areas.Seller.Views
             if (user == null) return RedirectToPage("/Account/Login", new { area = "Identity" });
 
             // Sadece satýcýlar burayý görebilsin
-            if (user.Type != UserType.Seller)
+            if (user.Type != "Seller")
                 return RedirectToPage("/Customer/Home");
 
             MyProducts = _context.Products.Where(p => p.SellerId == user.Id).ToList();

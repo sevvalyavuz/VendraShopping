@@ -12,5 +12,6 @@ namespace Vendra.Data
         }
         public DbSet<Product> Products { get; set; }
         public DbSet<Brand> Brands { get; set; } 
+        public DbSet<UserTypes> UserTypes { get; set; } 
     }
 }

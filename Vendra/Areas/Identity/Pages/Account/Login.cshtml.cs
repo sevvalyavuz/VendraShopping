@@ -50,15 +50,15 @@ namespace Vendra.Areas.Identity.Pages.Account
                 {
                     var user = await _userManager.FindByEmailAsync(Input.Email);
 
-                    if (user.Type == UserType.Customer && UserMail == "customer@gmail.com")
+                    if (user.Type == "Customer")
                     {
                         return LocalRedirect("/Customer/Home");
                     }
-                    else if (user.Type == UserType.Seller && UserMail == "seller@gmail.com")
+                    else if (user.Type == "Seller")
                     {
                         return LocalRedirect("/Seller/Home" );
                     }
-                    else if (user.Type == UserType.Admin && UserMail == "admin@gmail.com")
+                    else if (user.Type == "Admin" )
                     {
                         return LocalRedirect("/Admin/Home");
                     }

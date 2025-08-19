@@ -2,28 +2,28 @@
 
 #nullable disable
 
-namespace Vendra.Data.Migrations
+namespace Vendra.Migrations
 {
     /// <inheritdoc />
-    public partial class AddUserType : Migration
+    public partial class UserTypes2 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<int>(
-                name: "Type",
-                table: "AspNetUsers",
-                type: "int",
+            migrationBuilder.AddColumn<string>(
+                name: "Grup",
+                table: "UserTypes",
+                type: "nvarchar(max)",
                 nullable: false,
-                defaultValue: 0);
+                defaultValue: "");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "Type",
-                table: "AspNetUsers");
+                name: "Grup",
+                table: "UserTypes");
         }
     }
 }

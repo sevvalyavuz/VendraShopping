@@ -1,7 +1,8 @@
 ﻿@page
+@using Vendra.Models
 @model Vendra.Areas.Identity.Pages.Account.RegisterModel
 @{
-	ViewData["Title"] = "Register";
+    ViewData["Title"] = "Register";
 }
 
 <h2 class="RegisterText">Üye ol</h2>
@@ -31,13 +32,16 @@
 
         <div class="form-group">
             <label>Kullanıcı Tipi</label>
-            <select asp-for="Input.Type" class="form-control">
-                <option value="Customer">Müşteri</option>
-                <option value="Seller">Satıcı</option>
-                <option value="Admin">Admin</option>
+            <select asp-for="Input.Type" class="form-control" asp-items="Model.Input.UserTypes">
+               <option value="">?</option>
+               <option value="">Customer</option>
+               <option value="">Seller</option>
+               <option value="">Admin</option>
+               <option value="">User</option>
             </select>
+            <span asp-validation-for="Input.Type" class="text-danger"></span>
         </div>
+
         <button type="submit" class="btn btn-primary">Üye ol</button>
     </form>
-
 </div>

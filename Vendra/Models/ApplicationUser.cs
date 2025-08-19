@@ -4,7 +4,7 @@ namespace Vendra.Models
 {
     public class ApplicationUser : IdentityUser
     {
-        public UserType Type { get; set; }  // Customer veya Seller
+        public string Type { get; set; }  // Customer veya Seller
     }
 
     public enum UserType
