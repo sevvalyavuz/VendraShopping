@@ -2,11 +2,13 @@
 
 namespace Vendra.Areas.Seller.Controllers;
 
+[Area("Seller")]
 public class HomeController : Controller
 {
-    [Area("Seller")]
+    
     public IActionResult Index()
     {
+        ViewData["Title"] = "Seller";
         return View();
     }
 }

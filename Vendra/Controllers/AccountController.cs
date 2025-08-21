@@ -19,7 +19,7 @@ namespace Vendra.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(string email, string password)
         {
-            var user = new ApplicationUser { UserName = email, Email = email, Type = "Customer" };
+            var user = new ApplicationUser { UserName = email, Email = email };
             var result = await _userManager.CreateAsync(user, password);
 
             if (result.Succeeded)

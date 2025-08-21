@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Vendra.Models
 {
@@ -7,24 +6,28 @@ namespace Vendra.Models
     {
         public int Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Ürün adı zorunludur")]
+        [StringLength(100)]
         public string Name { get; set; }
 
-        [Required]
-        public string Description { get; set; }
-
-        [Required]
-        public string ImageUrl { get; set; }
-
-        [Required]
-        [Column(TypeName = "decimal(18,2)")] 
+        [Required(ErrorMessage = "Fiyat zorunludur")]
+        [Range(0.01, 1000000, ErrorMessage = "Geçerli bir fiyat giriniz")]
         public decimal Price { get; set; }
 
-        [Required]
+        [StringLength(500)]
+        public string Description { get; set; }
+
+        [Required(ErrorMessage = "Stok adedi zorunludur")]
+        [Range(0, 100000, ErrorMessage = "Geçerli bir stok adedi giriniz")]
+        public int Stock { get; set; }
+
+        [Display(Name = "Kategori")]
+        public string? Category { get; set; }
+
+        [Display(Name = "Ürün Görseli")]
+        public string ImageUrl { get; set; }
         public string SellerId { get; set; }
-
-        public string Brand { get; set; }
-
+        public string Color { get; set; }
+        public int BrandId { get; set; }
     }
 }
-

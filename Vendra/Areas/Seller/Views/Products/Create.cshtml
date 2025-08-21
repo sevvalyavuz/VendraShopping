@@ -1,0 +1,62 @@
+﻿@model Vendra.Models.Product
+@{
+    ViewData["Title"] = "Ürün Ekle";
+}
+
+<h2> Yeni ürün ekle</h2>
+<div class="container mt-4">
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success">@TempData["Success"]</div>
+    }
+
+    <form asp-action="Create" method="post">
+        <div class="mb-3">
+            <label asp-for="Name" class="form-label"></label>
+            <input asp-for="Name" class="form-control" placeholder="Ürün adını girin" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Price" class="form-label"></label>
+            <input asp-for="Price" class="form-control" placeholder="Örn: 299.99" />
+            <span asp-validation-for="Price" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Stock" class="form-label"></label>
+            <input asp-for="Stock" class="form-control" placeholder="Stok adedi girin" />
+            <span asp-validation-for="Stock" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Category" class="form-label"></label>
+            <select asp-for="Category" class="form-select" required>
+                <option value="">Kategori Seç</option>
+                <option value="Elektronik">Elektronik</option>
+                <option value="Giyim">Giyim</option>
+                <option value="Ev & Yaşam">Ev & Yaşam</option>
+                <option value="Kozmetik">Kozmetik</option>
+                <option value="Spor">Spor</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Description" class="form-label"></label>
+            <textarea asp-for="Description" class="form-control" rows="3" placeholder="Ürün açıklaması girin"></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="ImageUrl" class="form-label"></label>
+            <input asp-for="ImageUrl" class="form-control" placeholder="Görsel URL'si" />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Ürün Ekle</button>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+

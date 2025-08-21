@@ -8,7 +8,6 @@ namespace Vendra.Controllers
         private readonly ApplicationDbContext db;
         public GeneralController(ApplicationDbContext db) {this.db = db;}
 
-        public JsonResult GetUserTypeList() => Json(db.UserTypes.ToList());
 
     }
 }

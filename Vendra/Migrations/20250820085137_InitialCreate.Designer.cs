@@ -12,8 +12,8 @@ using Vendra.Data;
 namespace Vendra.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250819091135_UserTypes")]
-    partial class UserTypes
+    [Migration("20250820085137_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -210,8 +210,9 @@ namespace Vendra.Migrations
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
 
-                    b.Property<int>("Type")
-                        .HasColumnType("int");
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
@@ -252,6 +253,22 @@ namespace Vendra.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Brands");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedAt = new DateTime(2025, 8, 20, 11, 51, 36, 964, DateTimeKind.Local).AddTicks(4442),
+                            LogoUrl = "/images/brand1.jpg",
+                            Name = "TestMarka"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedAt = new DateTime(2025, 8, 20, 11, 51, 36, 964, DateTimeKind.Local).AddTicks(4459),
+                            LogoUrl = "/images/brand2.jpg",
+                            Name = "DenemeBrand"
+                        });
                 });
 
             modelBuilder.Entity("Vendra.Models.Product", b =>
@@ -262,7 +279,10 @@ namespace Vendra.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Brand")
+                    b.Property<int>("BrandId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Color")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -287,7 +307,33 @@ namespace Vendra.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("BrandId");
+
                     b.ToTable("Products");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            BrandId = 2,
+                            Color = "Kırmızı",
+                            Description = "Bu bir test ürünüdür.",
+                            ImageUrl = "/images/product1.jpg",
+                            Name = "Test Ürün 1",
+                            Price = 199.99m,
+                            SellerId = "2"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            BrandId = 1,
+                            Color = "Mavi",
+                            Description = "İkinci test ürünü.",
+                            ImageUrl = "/images/product2.jpg",
+                            Name = "Test Ürün 2",
+                            Price = 299.50m,
+                            SellerId = "1"
+                        });
                 });
 
             modelBuilder.Entity("Vendra.Models.UserTypes", b =>
@@ -302,6 +348,10 @@ namespace Vendra.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Grup")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -366,6 +416,17 @@ namespace Vendra.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Vendra.Models.Product", b =>
+                {
+                    b.HasOne("Vendra.Models.Brand", "Brands")
+                        .WithMany()
+                        .HasForeignKey("BrandId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Brands");
                 });
 #pragma warning restore 612, 618
         }

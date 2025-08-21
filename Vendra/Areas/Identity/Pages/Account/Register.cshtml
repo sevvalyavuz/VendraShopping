@@ -2,46 +2,50 @@
 @using Vendra.Models
 @model Vendra.Areas.Identity.Pages.Account.RegisterModel
 @{
-    ViewData["Title"] = "Register";
+	ViewData["Title"] = "Register";
 }
 
 <h2 class="RegisterText">Üye ol</h2>
 
-<div class="login">
-    <form method="post">
-        @Html.AntiForgeryToken()
-        <div asp-validation-summary="All" class="text-danger"></div>
+<div class="register p-5" style="border:1px solid silver; border-radius:10px">
+	<div class="register-content">
+		<form method="post">
+			@Html.AntiForgeryToken()
+			@*@Html.AntiForgeryToken()
+				<div asp-validation-summary="All" class="text-danger"></div>
+			*@
+			<div class="form-group">
+				<label>Email</label>
+				<input asp-for="Input.Email" class="form-control" />
+				<span asp-validation-for="Input.Email" class="text-danger"></span>
+			</div>
 
-        <div class="form-group">
-            <label>Email</label>
-            <input asp-for="Input.Email" class="form-control" />
-            <span asp-validation-for="Input.Email" class="text-danger"></span>
-        </div>
+			<div class="form-group">
+				<label>Şifre</label>
+				<input asp-for="Input.Password" type="password" class="form-control" />
+				<span asp-validation-for="Input.Password" class="text-danger"></span>
+			</div>
 
-        <div class="form-group">
-            <label>Şifre</label>
-            <input asp-for="Input.Password" type="password" class="form-control" />
-            <span asp-validation-for="Input.Password" class="text-danger"></span>
-        </div>
+			<div class="form-group">
+				<label>Şifreyi Tekrarla</label>
+				<input asp-for="Input.ConfirmPassword" type="password" class="form-control" />
+				<span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+			</div>
 
-        <div class="form-group">
-            <label>Şifreyi Tekrarla</label>
-            <input asp-for="Input.ConfirmPassword" type="password" class="form-control" />
-            <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
-        </div>
-
-        <div class="form-group">
-            <label>Kullanıcı Tipi</label>
-            <select asp-for="Input.Type" class="form-control" asp-items="Model.Input.UserTypes">
-               <option value="">?</option>
-               <option value="">Customer</option>
+			@* <div class="form-group">
+				<label>Kullanıcı Tipi</label>
+				<select asp-for="Input.Type" class="form-control" asp-items="Model.Input.UserTypes">
+					<option value="">?</option>
+					                <option value="">Customer</option>
                <option value="">Seller</option>
                <option value="">Admin</option>
-               <option value="">User</option>
-            </select>
-            <span asp-validation-for="Input.Type" class="text-danger"></span>
-        </div>
+               <option value="">User</option> 
+				</select>
+				<span asp-validation-for="Input.Type" class="text-danger"></span>
+			</div> *@
+			
 
-        <button type="submit" class="btn btn-primary">Üye ol</button>
-    </form>
+			<button type="submit" class="btn btn-primary btn-block">Üye ol</button>
+		</form>
+	</div>
 </div>

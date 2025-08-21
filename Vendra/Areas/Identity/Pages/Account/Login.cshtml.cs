@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Vendra.Models;
 
+
 namespace Vendra.Areas.Identity.Pages.Account
 {
     public class LoginModel : PageModel
@@ -49,24 +50,30 @@ namespace Vendra.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     var user = await _userManager.FindByEmailAsync(Input.Email);
+                    if (user is null) return LocalRedirect("/Home/Index");
 
-                    if (user.Type == "Customer")
-                    {
-                        return LocalRedirect("/Customer/Home");
+                    // Otomatik Type atama
+                    if (user.Type == "Admin")
+                    {       
+                        await _userManager.UpdateAsync(user);
+                        return RedirectToAction("Index", "Home");
                     }
                     else if (user.Type == "Seller")
                     {
-                        return LocalRedirect("/Seller/Home" );
+                     
+                        await _userManager.UpdateAsync(user);
+                        return RedirectToAction("Index", "Home");
                     }
-                    else if (user.Type == "Admin" )
+                    else
                     {
-                        return LocalRedirect("/Admin/Home");
+                        user.Type = "Customer";
+                        await _userManager.UpdateAsync(user);
+                        return RedirectToAction("Index", "Home");
                     }
                 }
 
                 ModelState.AddModelError(string.Empty, "Invalid login attempt.");
             }
-
             return Page();
         }
     }

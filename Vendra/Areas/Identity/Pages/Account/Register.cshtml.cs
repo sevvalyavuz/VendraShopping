@@ -26,7 +26,7 @@ namespace Vendra.Areas.Identity.Pages.Account
 
         [BindProperty]
         public InputModel Input { get; set; }
-  
+
 
         public class InputModel
         {
@@ -43,12 +43,10 @@ namespace Vendra.Areas.Identity.Pages.Account
             [Compare("Password", ErrorMessage = "Passwords do not match.")]
             public string ConfirmPassword { get; set; }
 
-            [Required]
-            public string Type { get; set; } 
-            public bool RememberMe { get; set; }
+            public bool? RememberMe { get; set; } = false;
 
-            [NotMapped]
-            public IEnumerable<SelectListItem> UserTypes { get; set; }
+            //[NotMapped]
+            //public IEnumerable<SelectListItem> UserTypes { get; set; }
 
         }
 
@@ -56,39 +54,50 @@ namespace Vendra.Areas.Identity.Pages.Account
         {
             returnurl ??= Url.Content("~/");
 
-            List<SelectListItem> userTypes = new()
-            {
-                new SelectListItem { Value = "Admin", Text = "Admin" },
-                new SelectListItem { Value = "Customer", Text = "Customer" },
-                new SelectListItem { Value = "Seller", Text = "Seller" },
-                new SelectListItem { Value = "User", Text = "User" },
-            };
+            //List<SelectListItem> userTypes = new()
+            //{
+            //    new SelectListItem { Value = "Admin", Text = "Admin" },
+            //    new SelectListItem { Value = "Customer", Text = "Customer" },
+            //    new SelectListItem { Value = "Seller", Text = "Seller" },
+            //    new SelectListItem { Value = "User", Text = "User" },
+            //};
+            //Input = new InputModel{ UserTypes = userTypes };
 
-            //Input = new InputModel{ UserTypes = _generalService.GetUserTypeList("") };
-            Input = new InputModel{ UserTypes = userTypes };
             // Burada db.UserTypes tablosundaki veriler çekilecek
+
         }
 
         public async Task<IActionResult> OnPostAsync()
         {
-            if (ModelState.IsValid)
-            {            
-                var user = new ApplicationUser { UserName =Input.Email, Email =Input.Email, Type =Input.Type };
-                var result = await _userManager.CreateAsync(user,Input.Password);
-
-                if (result.Succeeded)
+            //try
+            //{
+                if (ModelState.IsValid)
                 {
-                    await _signInManager.SignInAsync(user, isPersistent: false);
-                    return RedirectToPage("/Index"); 
-                }
+                    var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email };
+                    user.Type = "Customer"; // Varsayýlan olarak Customer olarak atandý, isterseniz bunu Input ile de alabilirsiniz.
+                    var result = await _userManager.CreateAsync(user, Input.Password);
 
-                foreach (var error in result.Errors)
-                {
-                    ModelState.AddModelError(string.Empty, error.Description);
-                }
-            }
+                    if (result.Succeeded)
+                    {
+                        await _signInManager.SignInAsync(user, isPersistent: false);
+                        // Controller + Action yönlendirmesi
+                        return RedirectToPage("/Index");
 
-            return Page();
+                    }
+                    else
+                    {
+                        foreach (var error in result.Errors)
+                        {
+                            ModelState.AddModelError(string.Empty, error.Description);
+                        }
+                    }
+                }
+                return Page();
+            //}
+        //    catch (Exception ex)
+        //    {
+        //        return Page();
+        //    }
         }
     }
 }

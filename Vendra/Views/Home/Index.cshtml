@@ -1,34 +1,58 @@
-﻿@{
-    ViewData["Title"] = "Seller";
+﻿@using Microsoft.AspNetCore.Identity
+@inject UserManager<Vendra.Models.ApplicationUser> UserManager
+@{
+    var user = UserManager.GetUserAsync(User).Result;
+    ViewData["Title"] = "Ana Sayfa";
 }
 
 <div>
-    <section class="category-circles">
-        <div class="circle-item">
-		    <img src="" />
-            <p>Yeni Gelenler</p>
-        </div>
-        <div class="circle-item">
-            <img src="">
-            <p>İndirimdekiler</p>
-        </div>
-        <div class="circle-item">
-            <img src="" alt="">
-            <p>Çok Satanlar</p>
-        </div>
-        <div class="circle-item">
-            <img src="~" alt="">
-            <p>Fırsatlar</p>
-        </div>
-        <div class="circle-item">
-            <img src="" alt="">
-            <p>İndirim kuponları</p>
-        </div>
-    </section>
+    @if (user == null || user.Type == "Customer")
+    {
+        <section class="category-circles">
+            <div class="circle-item">
+                <img src="" />
+                <p>Yeni Gelenler</p>
+            </div>
+            <div class="circle-item">
+                <img src="">
+                <p>İndirimdekiler</p>
+            </div>
+            <div class="circle-item">
+                <img src="" alt="">
+                <p>Çok Satanlar</p>
+            </div>
+            <div class="circle-item">
+                <img src="~" alt="">
+                <p>Fırsatlar</p>
+            </div>
+            <div class="circle-item">
+                <img src="" alt="">
+                <p>İndirim kuponları</p>
+            </div>
+        </section>
 
-    <div class="brands" >
+        <div class="brands">
+        </div>
 
-    </div>
+    }
+    
+    @if (user != null && user.Type == "Seller")
+    {
+        <a class="btn-seller-add"
+           href="@Url.Action("Create", "Products", new { area = "Seller" })">
+            <i class="fas fa-plus-circle"></i> Yeni Ürün Ekle
+        </a>
+    }
+
+    @if (user != null && user.Type == "Admin")
+    {
+        <h2>Admin Paneli</h2>
+        <a asp-area="Admin" asp-controller="Brand" asp-action="Create" class="btn btn-primary">
+            Yeni Marka Ekle
+        </a>
+    }
+
+
 
 </div>
 

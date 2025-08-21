@@ -207,8 +207,9 @@ namespace Vendra.Migrations
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
 
-                    b.Property<int>("Type")
-                        .HasColumnType("int");
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
@@ -248,7 +249,23 @@ namespace Vendra.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Brands");
+                    b.ToTable("Brands", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedAt = new DateTime(2025, 8, 21, 10, 19, 55, 975, DateTimeKind.Local).AddTicks(9324),
+                            LogoUrl = "/images/brand1.jpg",
+                            Name = "TestMarka"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedAt = new DateTime(2025, 8, 21, 10, 19, 55, 975, DateTimeKind.Local).AddTicks(9337),
+                            LogoUrl = "/images/brand2.jpg",
+                            Name = "DenemeBrand"
+                        });
                 });
 
             modelBuilder.Entity("Vendra.Models.Product", b =>
@@ -259,7 +276,10 @@ namespace Vendra.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Brand")
+                    b.Property<int>("BrandId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Color")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -284,38 +304,33 @@ namespace Vendra.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Products");
-                });
+                    b.HasIndex("BrandId");
 
-            modelBuilder.Entity("Vendra.Models.UserTypes", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                    b.ToTable("Products", (string)null);
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Grup")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("ModifiedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("UserTypes");
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            BrandId = 2,
+                            Color = "Kırmızı",
+                            Description = "Bu bir test ürünüdür.",
+                            ImageUrl = "/images/product1.jpg",
+                            Name = "Test Ürün 1",
+                            Price = 199.99m,
+                            SellerId = "2"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            BrandId = 1,
+                            Color = "Mavi",
+                            Description = "İkinci test ürünü.",
+                            ImageUrl = "/images/product2.jpg",
+                            Name = "Test Ürün 2",
+                            Price = 299.50m,
+                            SellerId = "1"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -367,6 +382,17 @@ namespace Vendra.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Vendra.Models.Product", b =>
+                {
+                    b.HasOne("Vendra.Models.Brand", "Brands")
+                        .WithMany()
+                        .HasForeignKey("BrandId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Brands");
                 });
 #pragma warning restore 612, 618
         }
