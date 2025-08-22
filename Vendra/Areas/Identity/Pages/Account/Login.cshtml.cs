@@ -56,19 +56,18 @@ namespace Vendra.Areas.Identity.Pages.Account
                     if (user.Type == "Admin")
                     {       
                         await _userManager.UpdateAsync(user);
-                        return RedirectToAction("Index", "Home");
+                        return LocalRedirect("/Admin/Dashboard/Index");
                     }
                     else if (user.Type == "Seller")
-                    {
-                     
+                    {                     
                         await _userManager.UpdateAsync(user);
-                        return RedirectToAction("Index", "Home");
+                        return LocalRedirect("/Seller/Dashboard/Index");
                     }
                     else
                     {
                         user.Type = "Customer";
                         await _userManager.UpdateAsync(user);
-                        return RedirectToAction("Index", "Home");
+                        return LocalRedirect("/Home/Index");
                     }
                 }
 

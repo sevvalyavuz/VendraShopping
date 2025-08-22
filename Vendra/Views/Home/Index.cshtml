@@ -6,8 +6,8 @@
 }
 
 <div>
-    @if (user == null || user.Type == "Customer")
-    {
+    @* @if (user == null || user.Type == "Customer")
+    { *@
         <section class="category-circles">
             <div class="circle-item">
                 <img src="" />
@@ -34,12 +34,12 @@
         <div class="brands">
         </div>
 
-    }
+   @*  }
     
     @if (user != null && user.Type == "Seller")
     {
         <a class="btn-seller-add"
-           href="@Url.Action("Create", "Products", new { area = "Seller" })">
+           href="/Seller/Product/Create">
             <i class="fas fa-plus-circle"></i> Yeni Ürün Ekle
         </a>
     }
@@ -50,7 +50,7 @@
         <a asp-area="Admin" asp-controller="Brand" asp-action="Create" class="btn btn-primary">
             Yeni Marka Ekle
         </a>
-    }
+    } *@
 
 
 

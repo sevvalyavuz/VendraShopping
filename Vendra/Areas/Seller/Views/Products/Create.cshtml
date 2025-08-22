@@ -11,7 +11,9 @@
         <div class="alert alert-success">@TempData["Success"]</div>
     }
 
-    <form asp-action="Create" method="post">
+    <form asp-area="Seller" asp-controller="Product" asp-action="Create" method="post">
+        @Html.AntiForgeryToken()
+
         <div class="mb-3">
             <label asp-for="Name" class="form-label"></label>
             <input asp-for="Name" class="form-control" placeholder="Ürün adını girin" />
@@ -59,4 +61,3 @@
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }
-
